@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +33,16 @@ public class Question {
 	@OneToMany(mappedBy="question", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private List<Like> likes;
 	
+	@OneToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="interest_id")
+	private Interest interest;
+	
+	public Interest getInterest() {
+		return interest;
+	}
+	public void setInterest(Interest interest) {
+		this.interest = interest;
+	}
 	public User getUser() {
 		return user;
 	}

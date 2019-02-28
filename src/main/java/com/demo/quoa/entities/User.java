@@ -26,7 +26,7 @@ public class User {
 		CascadeType.PERSIST,
 		CascadeType.MERGE
 	})
-	@JoinTable(name="interests", joinColumns=
+	@JoinTable(name="interest", joinColumns=
 			@JoinColumn(name="uname", referencedColumnName="uname"), inverseJoinColumns=
 			@JoinColumn(name="id", referencedColumnName="id"))
 	private List<Interest> interests;

@@ -17,8 +17,8 @@ public class Like {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	private String like;
-	private String disLike;
+	private String liked;
+	private String disliked;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="uname")
@@ -28,24 +28,24 @@ public class Like {
 	@JoinColumn(name="question_id")
 	private Question question;
 
-	public String getLike() {
-		return like;
-	}
-
-	public void setLike(String like) {
-		this.like = like;
-	}
-
-	public String getDisLike() {
-		return disLike;
-	}
-
-	public void setDisLike(String disLike) {
-		this.disLike = disLike;
-	}
-
 	public User getUser() {
 		return user;
+	}
+
+	public String getLiked() {
+		return liked;
+	}
+
+	public void setLiked(String liked) {
+		this.liked = liked;
+	}
+
+	public String getDisliked() {
+		return disliked;
+	}
+
+	public void setDisliked(String disliked) {
+		this.disliked = disliked;
 	}
 
 	public void setUser(User user) {
