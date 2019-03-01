@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.demo.quoa.exception.AnswerCreationException;
+import com.demo.quoa.exception.InterestAddException;
 import com.demo.quoa.exception.InterestNotFoundException;
 import com.demo.quoa.exception.LikeException;
 import com.demo.quoa.exception.QuestionCreationException;
@@ -56,6 +57,13 @@ public class AdviceController {
 	
 	@ExceptionHandler(value=UserNotFoundException.class)
 	public ResponseEntity<Response> handleUserNotFoundException(Throwable t){
+		ResponseEntity<Response> response = new ResponseEntity<Response>(new Response("500", t.getMessage())
+				, HttpStatus.INTERNAL_SERVER_ERROR);
+		return response;
+	}
+	
+	@ExceptionHandler(value=InterestAddException.class)
+	public ResponseEntity<Response> handleInterestAddException(Throwable t){
 		ResponseEntity<Response> response = new ResponseEntity<Response>(new Response("500", t.getMessage())
 				, HttpStatus.INTERNAL_SERVER_ERROR);
 		return response;

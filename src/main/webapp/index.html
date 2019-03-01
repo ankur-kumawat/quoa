@@ -1,0 +1,35 @@
+<html>
+<head>
+<script type="text/javascript" src="js/jquery-3.3.1.js"> </script>
+<script type="text/javascript">
+	function loginMethod() {
+		var username = $('#uname').val();
+		var password = $('#password').val();
+		var url = "api/user?uname="+username+"&password="+password;
+		/* $.get(url, function(data, status){
+			console.log(data. +" "+ status);
+		}); */
+		$.ajax({
+			url: url,
+			type: "GET",
+			dataType: "aplication/json",
+			success: function (data, status){
+				console.log(data);
+			}
+		});
+		//console.log(username); 
+	}
+</script>
+</head>
+<body>
+<form id="login">
+  <h1>Please sign in</h1>
+  <label for="username">Username</label>
+  <input type="text" id="uname" name="uname" placeholder="Username" required autofocus>
+  <label for="password" >Password</label>
+  <input type="password" id="password" name="password" placeholder="Password" required>
+  <button type="submit" onclick="loginMethod()">Sign in</button>
+  <p>&copy; 2019</p>
+</form>
+</body>
+</html>

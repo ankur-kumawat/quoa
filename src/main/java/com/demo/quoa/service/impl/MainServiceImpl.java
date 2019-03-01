@@ -1,5 +1,6 @@
 package com.demo.quoa.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.demo.quoa.entities.Like;
 import com.demo.quoa.entities.Question;
 import com.demo.quoa.entities.User;
 import com.demo.quoa.exception.AnswerCreationException;
+import com.demo.quoa.exception.InterestAddException;
 import com.demo.quoa.exception.InterestNotFoundException;
 import com.demo.quoa.exception.LikeException;
 import com.demo.quoa.exception.QuestionCreationException;
@@ -44,8 +46,8 @@ public class MainServiceImpl implements MainService {
 	LikeRepository lRepo;
 
 	@Override
-	public User getUser(String uname) throws UserNotFoundException {
-		return uRepo.findById(uname).orElseThrow(()->new UserNotFoundException());
+	public User getUser(String uname, String password) throws UserNotFoundException {
+		return uRepo.findByUnameAndPassword(uname, password).orElseThrow(()->new UserNotFoundException());
 	}
 
 	@Override
@@ -111,6 +113,21 @@ public class MainServiceImpl implements MainService {
 			throw new UserCreationException();
 		}
 		Response response = new Response("200 OK!", "User created successfuly");
+		return response;
+	}
+
+	@Override
+	public Response addInterest(Interest interest, String uname) throws UserNotFoundException, InterestAddException {
+		User user = uRepo.findById(uname).orElseThrow(
+				()-> new UserNotFoundException());
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		interest.setUsers(users);
+		interest = iRepo.saveAndFlush(interest);
+		if(interest.getId() == null) {
+			throw new InterestAddException();
+		}
+		Response response = new Response("200 OK!", "Interest added successfuly");
 		return response;
 	}
 

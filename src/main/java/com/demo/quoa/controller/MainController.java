@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.quoa.entities.Answer;
+import com.demo.quoa.entities.Interest;
 import com.demo.quoa.entities.Like;
 import com.demo.quoa.entities.Question;
 import com.demo.quoa.entities.User;
 import com.demo.quoa.exception.AnswerCreationException;
+import com.demo.quoa.exception.InterestAddException;
 import com.demo.quoa.exception.InterestNotFoundException;
 import com.demo.quoa.exception.LikeException;
 import com.demo.quoa.exception.QuestionCreationException;
@@ -32,13 +34,18 @@ public class MainController {
 	MainService service;
 	
 	@GetMapping(path="/user", produces= {"application/json"})
-	public User login(@RequestParam(name="uname") String uname) throws UserNotFoundException {
-		return service.getUser(uname);
+	public User login(@RequestParam(name="uname") String uname, @RequestParam(name="password") String password) throws UserNotFoundException {
+		return service.getUser(uname, password);
 	}
 	
 	@PostMapping(path="/user", produces="application/json")
 	public Response createUser(@RequestBody User user) throws UserCreationException {
 		return service.createUser(user);
+	}
+	
+	@PostMapping(path="/interests", produces="application/json")
+	public Response addInterest(@RequestBody Interest interest, @RequestParam(name="uname") String uname) throws UserNotFoundException, InterestAddException{
+		return service.addInterest(interest, uname);
 	}
 	
 	@GetMapping(path="/questions", produces="application/json")

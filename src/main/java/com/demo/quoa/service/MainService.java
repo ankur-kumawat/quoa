@@ -3,10 +3,12 @@ package com.demo.quoa.service;
 import java.util.List;
 
 import com.demo.quoa.entities.Answer;
+import com.demo.quoa.entities.Interest;
 import com.demo.quoa.entities.Like;
 import com.demo.quoa.entities.Question;
 import com.demo.quoa.entities.User;
 import com.demo.quoa.exception.AnswerCreationException;
+import com.demo.quoa.exception.InterestAddException;
 import com.demo.quoa.exception.InterestNotFoundException;
 import com.demo.quoa.exception.LikeException;
 import com.demo.quoa.exception.QuestionCreationException;
@@ -17,7 +19,7 @@ import com.demo.quoa.model.Response;
 
 public interface MainService {
 
-	User getUser(String uname) throws UserNotFoundException;
+	User getUser(String uname, String password) throws UserNotFoundException;
 
 	List<Question> getQuestions(String uname) throws UserNotFoundException;
 
@@ -30,5 +32,7 @@ public interface MainService {
 	Question getQuestion(Integer questionId) throws QuestionNotFoundException;
 
 	Response createUser(User user) throws UserCreationException;
+
+	Response addInterest(Interest interest, String uname) throws UserNotFoundException, InterestAddException;
 
 }
