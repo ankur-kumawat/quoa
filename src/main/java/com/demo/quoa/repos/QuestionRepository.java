@@ -1,6 +1,7 @@
 package com.demo.quoa.repos;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,5 @@ public interface QuestionRepository extends JpaRepository<Question, java.lang.In
 	//List<Question> findAllOrderByInterestId(List<Interest> interest);
 
 	List<Question> findAllOrderByInterest(List<Interest> interests);
+	
 }
